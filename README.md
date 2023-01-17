@@ -15,14 +15,14 @@ Modalidades implementadas:
 - [ ] Loteca
 ## Instalação
 ### Binários Pré-Construído
-Binários pré-construídos para Windows 64 (amd64) e 32 (i386) estão disponíveis em [releases](/releases/latest).
+Binários pré-construídos para Windows 64 (amd64) e 32 (i386) estão disponíveis em [lançamentos](https://github.com/rockcavera/nim-lotcef/releases/latest).
 
 Observação: o download dos binários pré-construídos vêm com duas dlls, libcrypto-1_1.dll e libssl-1_1.dll no i386, e libcrypto-1_1-x64.dll e libssl-1_1-x64.dll no amd64. Essas dlls são essenciais para a execução do programa e são criadas pela construção dinâmica do [OpenSSL](https://www.openssl.org/).
 ### Construção a partir do Código Fonte
 Primeiramente será necessário instalar o compilador [Nim](https://nim-lang.org/install.html). Aconselha-se a colocar o Nim na variável de ambiente PATH do seu sistema operacional.
 
 Após, baixe como deseja baixar o código fonte:
-1. Pode ser na página de [lançamentos](/releases/latest) (pelo próprio navegador, wget, curl, etc.) e proceder a descompactação do arquivo .zip ou .tar.gz; ou
+1. Pode ser na página de [lançamentos](https://github.com/rockcavera/nim-lotcef/releases/latest) (pelo próprio navegador, wget, curl, etc.) e proceder a descompactação do arquivo .zip ou .tar.gz; ou
 2. Utilizar algum programa que interaja com repositórios gits, como o próprio [git](https://git-scm.com/), e clonar o repositório com: `git clone https://github.com/rockcavera/nim-lotcef.git`.
 
 Agora, com o código fonte, acesse a pasta onde está o `lotcef.nimble` e digite: `nimble release`. Esse comando irá construir uma versão de lançamento do executável `lotcef`, na pasta `/bin/`.
@@ -71,7 +71,7 @@ Observações:
   4) Todos os dados são retirados do site da Caixa Econômica Federal.
   5) É preciso ter conexão com a internet.
 ```
-Para baixar todos os resultados em formato CSV com o concurso digite:
+Para baixar os resultados de todas as modalidades, em formato CSV, com o concurso, digite:
 ```
 lotcef --csv -c +Milionária "Dia de Sorte" "Dupla Sena" Lotofácil Lotomania Mega-Sena Quina "Super Sete" Timemania
 ```
