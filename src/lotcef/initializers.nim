@@ -1,6 +1,6 @@
-import std/sets
+import std/sets # Importação stdlib
 
-import ./parsers, ./types
+import ./parsers, ./types # Importações internas
 
 proc initSorteio(nome: string, tipo: SorteioTipo, quantidade, menor, maior,
                  iTd: int): SorteioObj =
@@ -9,7 +9,7 @@ proc initSorteio(nome: string, tipo: SorteioTipo, quantidade, menor, maior,
   ## Parâmetros
   ## - `nome`: Bola, Coluna, Trevo, Mês da Sorte, Time da Sorte... do tipo de sorteio
   ## - `tipo`: é uma das opções do enumerador `SorteioTipo`: `Inteiro` ou `String`
-  ## - `quantidade`: quantidade de bolas, collunas, trevos, mês, time, etc. sorteado
+  ## - `quantidade`: quantidade de bolas, colunas, trevos, mês, time, etc. sorteado
   ## - `menor`: é o menor número sorteado
   ## - `maior`: é o maior número sorteado
   ## - `iTd`: é o índice inicial da tag `td` durante a análise

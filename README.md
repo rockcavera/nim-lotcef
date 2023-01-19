@@ -18,18 +18,20 @@ Modalidades implementadas:
 Binários pré-construídos para Windows 64 (amd64) e 32 (i386) estão disponíveis em [lançamentos](https://github.com/rockcavera/nim-lotcef/releases/latest).
 
 Observação: o download dos binários pré-construídos vêm com duas dlls, libcrypto-1_1.dll e libssl-1_1.dll no i386, e libcrypto-1_1-x64.dll e libssl-1_1-x64.dll no amd64. Essas dlls são essenciais para a execução do programa e são criadas pela construção dinâmica do [OpenSSL](https://www.openssl.org/).
-### Construção a partir do Código Fonte
+### Construção a partir do Código-Fonte
 Primeiramente será necessário instalar o compilador [Nim](https://nim-lang.org/install.html). Aconselha-se a colocar o Nim na variável de ambiente PATH do seu sistema operacional.
 
-Após, baixe como deseja baixar o código fonte:
+Após, baixe como desejar o código-fonte:
 1. Pode ser na página de [lançamentos](https://github.com/rockcavera/nim-lotcef/releases/latest) (pelo próprio navegador, wget, curl, etc.) e proceder a descompactação do arquivo .zip ou .tar.gz; ou
 2. Utilizar algum programa que interaja com repositórios gits, como o próprio [git](https://git-scm.com/), e clonar o repositório com: `git clone https://github.com/rockcavera/nim-lotcef.git`.
 
-Agora, com o código fonte, acesse a pasta onde está o `lotcef.nimble` e digite: `nimble release`. Esse comando irá construir uma versão de lançamento do executável `lotcef`, na pasta `/bin/`.
+Agora, com o código-fonte, acesse a pasta onde está o `lotcef.nimble` e digite: `nimble release`. Esse comando irá construir uma versão de lançamento do executável `lotcef`, na pasta `/bin/`.
+
+Só lembrando que Nim é multiplataforma, ou seja, com o código-fonte se pode contruir para qualquer sistema operacional que Nim possui suporte, como: Windows, Linux, BSD, MacOS... sem necessidade de fazer alterações no código-fonte.
 ## Modo de uso
 Por ser um programa de linha de comandos, você necessita acessar o terminal do seu Sistema Operacional. No Windows você pode usar o powershell ou cmd (prompt de comandos). Caso não saiba como fazer, pesquise no [Google](https://www.google.com/).
 
-A melhor ajuda pode ser acessada digitando no terminal: `lotcef -h`. Será impresso isso:
+A melhor ajuda poderá ser acessada digitando no terminal: `lotcef -h`. Será impresso isso:
 ```
 Modo de uso:
 

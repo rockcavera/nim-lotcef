@@ -1,4 +1,4 @@
-import std/[sets, streams, xmltree]
+import std/[sets, streams, xmltree] # Importações stdlib
 
 type
   Modalidades* = enum
@@ -22,7 +22,7 @@ type
 
   SorteioTipo* = enum
     ## Enumerador para orientar o `parseGenerico` que tipo de dados o sorteio
-    ## usa.
+    ## usa e salvar no campo correto do objeto `IntOrString`.
     Inteiro ## Para números inteiros, sem ser decimais
     String ## Para cadeia de caracteres (palavras)
 
@@ -45,6 +45,8 @@ type
     sorteio*: seq[SorteioObj]
 
   ParserProc* = proc (cfg: Configuracoes, p: ProcessoObj, html: XmlNode)
+    ## Qualquer analisador de resultado deve ter esse cabeçalho em sua
+    ## declaração. Veja o procedimento `parsers.parseGenerico`.
 
   Configuracoes* = object
     ## Objeto com as configurações do programa

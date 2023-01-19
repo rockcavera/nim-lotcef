@@ -1,7 +1,7 @@
 import std/[json, htmlparser, httpclient, net, parseopt, sets, streams,
-            strformat, strutils, times, unicode]
+            strformat, strutils, times, unicode] # Importações do stdlib
 
-import ./lotcef/[initializers, types]
+import ./lotcef/[initializers, types] # Importações internas
 
 const ajuda = """Modo de uso:
 
@@ -86,27 +86,27 @@ proc parseArgs*(cfg: var Configuracoes) =
       break
     of cmdShortOption: # Opções curtas
       case p.key
-      of "c":
+      of "c": # -c
         cfg.imprimirConcurso = true
-      of "h":
+      of "h": # -h
         quit(ajuda, 0)
-      of "u":
+      of "u": # -u
         cfg.utf8bom = true
-      of "z":
+      of "z": # -z
         cfg.cortarZeroEsquerda = true
       else:
         quit(fmt"Erro: opção '{p.key}' desconhecida!", 1)
     of cmdLongOption: # Opções longas
       case toLower(p.key)
-      of "imprimirconcurso":
+      of "imprimirconcurso": # --imprimirconcurso
         cfg.imprimirConcurso = true
-      of "cortarzeroaesquerda", "cortarzeroesquerda":
+      of "cortarzeroaesquerda", "cortarzeroesquerda": # --cortarzeroesquerda|cortarzeroaesquerda
         cfg.cortarZeroEsquerda = true
-      of "csv":
+      of "csv": # --csv
         cfg.csv = true
-      of "utf8bom":
+      of "utf8bom": # --utf8bom
         cfg.utf8bom = true
-      of "ajuda", "help":
+      of "ajuda", "help": # --ajuda|help
         quit(ajuda, 0)
       else:
         quit(fmt"Erro: opção '{p.key}' desconhecida!", 1)
@@ -153,7 +153,7 @@ proc processar(cfg: Configuracoes, m: Modalidades) =
 
   echo "  Analisando..."
 
-  p.parserProc(cfg, p, html) # Chama o procedimento para analisar o arquivo com os resultados
+  p.parserProc(cfg, p, html) # Chama o procedimento para analisar o conteúdo baixado com os resultados
 
   echo fmt"  Resultados em '{nomeArquivo}'{'\n'}"
 
@@ -168,7 +168,7 @@ proc main() =
   if cfg.csv:
     cfg.cortarZeroEsquerda = true # Sempre que a opção --csv for passada cortarZeroEsquerda será verdadeiro
 
-  if len(cfg.modalidades) > 0: # Se houver modalidades, elas seráo processadas
+  if len(cfg.modalidades) > 0: # Se houver modalidades elas serão processadas
     for m in cfg.modalidades:
       processar(cfg, m)
   else:

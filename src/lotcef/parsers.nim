@@ -1,12 +1,18 @@
 import std/[algorithm, htmlparser, parseutils, streams, strformat, strutils,
-            xmltree]
+            xmltree] # Importações stdlib
 
-import ./types, ./utils
+import ./types, ./utils # Importações internas
 
 proc parseGenerico*(cfg: Configuracoes, p: ProcessoObj, html: XmlNode) =
   ## Analisador genérico para as modalidades lotéricas da CEF.
   ##
   ## Aqui é analisado todo o html em busca dos dados.
+  ##
+  ## - `cfg` traz as configurações gerais do programa, que podem ser alteradas com
+  ##   opções no chamamento pela linha de comando.
+  ## - `p` traz os dados necessários para processar a análise de acordo com a
+  ##   modalidade. O próprio `parseGenerico` e chamado a partir deste objeto.
+  ## - `html` é o conteúdo baixado que será analisado.
   var
     ultimoConcurso = low(int) # Registro do último concurso analisado
     sep = " " # Separador
@@ -41,12 +47,12 @@ proc parseGenerico*(cfg: Configuracoes, p: ProcessoObj, html: XmlNode) =
         fTable = find(strTbody, "</table>", iTable + 6) # Procurar onde termina
 
       if (iTable != -1) and (fTable != -1): # Se achou...
-        when (NimMajor, NimMinor, NimPatch) >= (1, 6, 0):
+        when (NimMajor, NimMinor, NimPatch) >= (1, 6, 0): # Para manter compatibilidade entre versões do compilador
           delete(strTbody, iTable..(fTable + 7)) # Então deleta tudo que está entre elas
         else:
           delete(strTbody, iTable, fTable + 7)
 
-      tbody = parseHtml(strTbody) # Voltando o tbody
+      tbody = parseHtml(strTbody) # Voltando o tbody sem `<table>[...]</table>`
 
     for tr in findAll(tbody, "tr"): # Procura por todas as tags `tr`
       var
@@ -74,8 +80,8 @@ proc parseGenerico*(cfg: Configuracoes, p: ProcessoObj, html: XmlNode) =
             raise newException(ValueError, fmt"Erro: não foi possível analisar um inteiro para o concurso: '{innerText(td)}'")
         else:
           for i, s in p.sorteio:
-            if (y >= s.iTd) and (y < (s.iTd + s.quantidade)): # Verifica se é algum índice que nós intereça
-              quantidadeNums = quantidadeNums -% 1
+            if (y >= s.iTd) and (y < (s.iTd + s.quantidade)): # Verifica se é algum índice que nos interessa
+              quantidadeNums = quantidadeNums -% 1 # Diminui `quantidadeNums` para controlar a análise e capturas
 
               case s.tipo
               of Inteiro:
@@ -93,7 +99,7 @@ proc parseGenerico*(cfg: Configuracoes, p: ProcessoObj, html: XmlNode) =
                 add(nums[i].s, innerText(td))
 
         if quantidadeNums <= 0: # Já capturou tudo que deveria capturar =D
-          break # Sai do for para a tags `td`
+          break # Sai do for das tags `td` para o for das tags `tr`
 
       if (concurso != low(int)) and (quantidadeNums <= 0): # Verifica se capturou tudo que deveria capturar
         if ultimoConcurso != low(int): # Verificar concursos faltando entre concursos
@@ -103,7 +109,7 @@ proc parseGenerico*(cfg: Configuracoes, p: ProcessoObj, html: XmlNode) =
             for c in (ultimoConcurso + 1) ..< concurso: # Imprimindo os concursos faltantes no `stdout`
               echo fmt"      {c}"
 
-        ultimoConcurso = concurso
+        ultimoConcurso = concurso # Define o último concurso com o concurso capturado agora
 
         # Impressão para o arquivo de saída
         if cfg.imprimirConcurso: # Se a opção -c ou --imprimirconcurso for passada
@@ -112,11 +118,11 @@ proc parseGenerico*(cfg: Configuracoes, p: ProcessoObj, html: XmlNode) =
           else:
             write(p.fs, fmt"{concurso:05}{sep}")
 
-        for i, s in p.sorteio:
+        for i, s in p.sorteio: # Imprimindo bolas, colunas, times, trevos...
           case s.tipo
           of Inteiro:
             if p.modalidade != SuperSete: # /!\ Super Sete são colunas, não se deve ordenar
-              sort(nums[i].i)
+              sort(nums[i].i) # Colocando números sorteados em ordem crescente
 
             write(p.fs, join(nums[i].i, cfg.cortarZeroEsquerda, sep), sep)
           of String:
@@ -125,6 +131,6 @@ proc parseGenerico*(cfg: Configuracoes, p: ProcessoObj, html: XmlNode) =
         setPosition(p.fs, getPosition(p.fs) - len(sep)) # Voltar antes do último separador
         write(p.fs, "\p") # Sobrescrever último separador com uma nova linha da plataforma
 
-        break # Sai do for para a tags `tr`
+        break # Sai do for das tags `tr` para o for das tags `tbody`
       else:
         raise newException(ValueError, fmt"Erro: não foi possível capturar todos os dados para o concurso!")

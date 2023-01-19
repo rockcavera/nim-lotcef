@@ -1,4 +1,4 @@
-import std/strformat
+import std/strformat # Importação stdlib
 
 proc join*(a: openArray[int], cortarZeroEsquerda: bool, sep: string = ""): string =
   ## Junta todos os elementos de `a` em uma `string` separada por `sep`.
