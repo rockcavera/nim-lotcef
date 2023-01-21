@@ -11,7 +11,7 @@ Modalidades implementadas:
 - [x] Quina
 - [x] Super Sete
 - [x] Timemania
-- [ ] Federal
+- [x] Federal
 - [ ] Loteca
 ## Instalação
 ### Binários Pré-Construído

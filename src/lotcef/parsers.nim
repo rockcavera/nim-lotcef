@@ -26,8 +26,11 @@ proc parseGenerico*(cfg: Configuracoes, p: ProcessoObj, html: XmlNode) =
       write(p.fs, "Concurso;")
 
     for s in p.sorteio:
-      for i in 1 .. s.quantidade:
-        write(p.fs, fmt"{s.nome} {i}{sep}")
+      if s.quantidade > 1: # Se houver mais de um objeto sorteado...
+        for i in 1 .. s.quantidade:
+          write(p.fs, fmt"{s.nome} {i}{sep}") # será impresso a quantidade.
+      else: #
+        write(p.fs, fmt"{s.nome} {sep}") # Caso seja apenas um objeto sorteado não será impressa a quantidade. Questão estética.
 
     setPosition(p.fs, getPosition(p.fs) - len(sep)) # Voltar antes do último separador
     write(p.fs, "\p") # Sobrescrever último separador com uma nova linha da plataforma
@@ -35,7 +38,8 @@ proc parseGenerico*(cfg: Configuracoes, p: ProcessoObj, html: XmlNode) =
   for tbody in findAll(html, "tbody"): # Procura por todas as tags `tbody`
     x = x +% 1
 
-    if (x and 1) != 1: continue # As tags `tbody` pares não importam.
+    if ((x and 1) != 1) and (p.modalidade != Federal): # As tags `tbody` pares não importam. /!\ Exceto para Federal.
+      continue
 
     var tbody = tbody
 

@@ -23,6 +23,7 @@ Modalidades:
                 Milionaria
   Dia de Sorte  Dia-de-Sorte, DiadeSorte
   Dupla Sena    DuplaSena, Dupla-Sena, Dupla
+  Federal       Loteria Federal
   Lotofácil     Lotofacil, Loto Fácil, Loto Facil
   Lotomania     Loto Mania
   Mega-Sena     MegaSena, Mega, Mega Sena
@@ -50,26 +51,28 @@ proc parseArgModalidade(m: string): Modalidades =
   ## alguma configurada e retorna um enumerador de `Modalidades`. Caso não
   ## corresponda, o programa será encerrado com um erro.
   case toLower(m)
+  of "dia de sorte", "dia-de-sorte", "diadesorte":
+    result = DiaDeSorte
+  of "dupla sena", "duplasena", "dupla-sena", "dupla":
+    result = DuplaSena
+  of "federal", "loteria federal":
+    result = Federal
+  of "lotofácil", "lotofacil", "loto fácil", "loto facil":
+    result = Lotofacil
+  of "lotomania", "loto mania":
+    result = Lotomania
   of "+milionária", "+milionaria", "+ milionária", "+ milionaria",
      "maismilionária", "maismilionaria", "mais milionária", "mais milionaria",
      "milionária", "milionaria":
     result = MaisMilionaria
   of "mega-sena", "megasena", "mega", "mega sena":
     result = MegaSena
-  of "lotofácil", "lotofacil", "loto fácil", "loto facil":
-    result = Lotofacil
   of "quina":
     result = Quina
-  of "lotomania", "loto mania":
-    result = Lotomania
-  of "timemania", "time mania":
-    result = Timemania
-  of "dupla sena", "duplasena", "dupla-sena", "dupla":
-    result = DuplaSena
-  of "dia de sorte", "dia-de-sorte", "diadesorte":
-    result = DiaDeSorte
   of "super sete", "super-sete", "supersete", "super 7", "super-7", "super7":
     result = SuperSete
+  of "timemania", "time mania":
+    result = Timemania
   else:
     quit(fmt"Erro: modalidade '{m}' desconhecida!", 1)
 

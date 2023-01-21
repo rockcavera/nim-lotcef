@@ -38,6 +38,18 @@ proc initDuplaSena(): ProcessoObj =
   result.sorteio = @[initSorteio("Sorteio 1 Bola", Inteiro, 6, 1, 50, 3),
                      initSorteio("Sorteio 2 Bola", Inteiro, 6, 1, 50, 21)]
 
+proc initFederal(): ProcessoObj =
+  ## Inicia um objeto `ProcessoObj` com as configurações para a modalidade
+  ## Federal.
+  result.link = "https://servicebus2.caixa.gov.br/portaldeloterias/api/resultados?modalidade=Federal"
+  result.modalidade = Federal
+  result.parserProc = parseGenerico
+  result.sorteio = @[initSorteio("1º Bilhete", Inteiro, 1, 0, 100_000, 3),
+                     initSorteio("2º Bilhete", Inteiro, 1, 0, 100_000, 5),
+                     initSorteio("3º Bilhete", Inteiro, 1, 0, 100_000, 7),
+                     initSorteio("4º Bilhete", Inteiro, 1, 0, 100_000, 9),
+                     initSorteio("5º Bilhete", Inteiro, 1, 0, 100_000, 11)]
+
 proc initLotofacil(): ProcessoObj =
   ## Inicia um objeto `ProcessoObj` com as configurações para a modalidade
   ## Lotofácil.
@@ -103,6 +115,8 @@ proc initProcesso*(m: Modalidades): ProcessoObj =
     result = initDiaDeSorte()
   of DuplaSena:
     result = initDuplaSena()
+  of Federal:
+    result = initFederal()
   of Lotofacil:
     result = initLotofacil()
   of Lotomania:

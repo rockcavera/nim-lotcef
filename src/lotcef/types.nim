@@ -3,16 +3,17 @@ import std/[sets, streams, xmltree] # Importações stdlib
 type
   Modalidades* = enum
     ## Enumerador com todas as modalidades
-    Desconhecida = "Desconhecida"
+    DiaDeSorte = "Dia de Sorte"
+    DuplaSena = "Dupla Sena"
+    Federal = "Federal"
+    Lotofacil = "Lotofácil"
+    Lotomania = "Lotomania"
     MaisMilionaria = "+Milionária"
     MegaSena = "Mega-Sena"
-    Lotofacil = "Lotofácil"
     Quina = "Quina"
-    Lotomania = "Lotomania"
-    Timemania = "Timemania"
-    DuplaSena = "Dupla Sena"
-    DiaDeSorte = "Dia de Sorte"
     SuperSete = "Super Sete"
+    Timemania = "Timemania"
+    Desconhecida = "Desconhecida"
 
   IntOrString* = object
     ## Objeto para poder termos inteiros e strings em um sorteio. Necessário
